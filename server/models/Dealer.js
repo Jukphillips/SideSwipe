@@ -11,7 +11,7 @@ const dealerSchema = new Schema({
         required: true,
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true, 
     },
     email: {
@@ -55,4 +55,7 @@ userSchema.pre("insertMany", async function (next, docs) {
 
 userSchema.methods.isCorrectpassaword = function (password) {
     return bcrypt.compareSync(password, this.password)
-}
+};
+
+const Dealer = model("Dealer", dealerSchema);
+module.exports = Dealer;

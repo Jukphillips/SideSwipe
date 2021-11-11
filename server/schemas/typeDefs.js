@@ -20,8 +20,8 @@ type User {
 type Dealer {
     _id: ID!
     location: String!
-    storeNumber: Number!
-    phoneNumber: Number!
+    storeNumber: Int!
+    phoneNumber: String!
     email: String
     vechiles: [Inventory]
 }
@@ -34,17 +34,47 @@ type Inventory {
 
 type Car {
     _id: ID!
-    year: Number!
+    year: Int!
     make: String!
     model: String!
     trim: String!
-    price: Number!
-    type: String!
+    price: Int!
+    type: String
     images: [String]
-    mileage: Number!
+    mileage: Int!
     mpg: String!       
     vin: String
 
+}
+
+input newInventory {
+    name; String!
+}
+
+input newCar {
+    year: Int!
+    make: String!
+    model: String!
+    trim: String!
+    price: Int!
+    type: String
+    images: [String]
+    mileage: Int!
+    mpg: String!
+    vin: String
+}
+
+input updateCar {
+    year: Int
+    make: String
+    model: String
+    trim: String
+    price: Int
+    type: String
+    images: [String]
+    mileage: Int
+    mpg: String
+    vin: String
 }
 
 type Query {
@@ -57,6 +87,24 @@ type Query {
     getCars: [Car]
 }
 
+type Mutation {
+    userLogin(email: String!, password: String!): Auth
+    createUser(email: String!, firstName: String!, lastName: String!, password: String!): Auth
+    deleteUser(_id: ID!): Auth
+
+    dealerLogin(storeNumber: Number!, password: String!): Auth
+    createDealer(location: String!, storeNumber: Int!, phoneNumber: String!, email: String, password: String!): Auth
+    deleteDealer(_id: ID!): Auth
+
+    createInventory(inventoryId: ID!, input: newInventory!): Inventory
+    updateInventory(_id: ID!, input: newInventory!): Inventory
+    deleteInventory(_id: ID!): Inventory
+
+    createCar(inventory:Id!, input newCar!): Car
+    updateCar(_Id: ID!, input: updateCar!): Car
+    deleteCar(_id: ID!)
+
+}
 
 
 
